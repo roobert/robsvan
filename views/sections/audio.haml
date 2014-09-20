@@ -1,0 +1,109 @@
+%h3
+  %a{ :name => "audio", :href => "#audio" } Audio
+
+
+%h4{ :name => "audio_overview", :href => "#audio_overview" } Overview
+
+:markdown
+  By default the van comes with an AUDIO 20 Stereo with no line-in. At the same time as installing the aux-in accessory cable I added a 12V socket to power the phone I'd be using to play music.
+  
+  Without a pre-amp the line-in is very quiet, I mounted one behind the panel above the glove compartment and wired it up with a 12V to 5V USB adapter.
+
+.row
+  .col-sm-6.col-xs-12
+
+    %h4
+      %a{ :name => "audio_process", :href => "#audio_process" } Process
+
+    :markdown
+      0. Dismantle the dash
+      0. Install the wiring loom
+      0. Install the pre-amp
+      0. ...
+
+  .col-sm-6.col-xs-12
+
+    %h4
+      %a{ :name => "audio_parts", :href => "#audio_parts" } Parts
+
+    :markdown
+      * [mb-aux-ntg2](http://www.commandonline.co.uk/mb_aux_ntg2.html) wiring loom
+      * a [pre-amp](http://www.amazon.co.uk/gp/product/B00IE2AKD8/ref=oh_aui_detailpage_o02_s00?ie=UTF8&psc=1">pre-amp)
+      * 12v to 5v usb adapter
+      * 3.5mm stereo chassis panel mount socket to jack plug cable
+      * scotch lock wire connectors
+      * some grommets
+      * zip ties
+      * 12v USB socket
+
+%h4
+  %a{ :name => "audio_details", :href => "#audio_details" } Details
+
+%h5
+  %a{ :name => "audio_details_dismantle_dashboard", :href => "#audio_details_dismantle_dashboard" } 1. Dismantle the dash
+
+blah blah blah
+
+%h5
+  %a{ :name => "audio_details_wiring_loom", :href => "#audio_details_wiring_loom" } 2. Install the wiring loom
+
+:markdown
+
+  edit this:
+
+  The block that is already plugged in will be the same as the block on the end of your cable. You can take the pins out of the block on the end of your cable and insert them into the block that goes into the back of your stereo.
+
+  The block is comprised of two plastic pieces, one slides horizontally out from the other, and contains the pins. Once you've taken these two apart you can use something small and sharp to press the clips that hold each pin into the block, thus releasing each pin.
+
+  Once you've got the pins out of the block, insert them into the existing block attached to your stereo.
+
+  In order to work out which pins go where, find the mercedes wiring diagram for your stereo head unit.
+
+  Pins for AUDIO 20:
+
+  <pre>
+  3  - AUX1_IN Shield
+  4  - AUX1_IN LEFT   (White)
+  9  - AUX1_IN Ground (Black)
+  10 - AUX1_IN Right  (Red)
+  </pre>
+
+  [picture of back of unit]
+
+  Test to see if you can switch to AUX in on your stereo by pressing the DISC button twice, if not, you'll need to find a mercedes technician with a STAR unit that can recode your stereo to enable AUX in. They charge by the half-hour so if you leave things disassembled they can do it quite quickly - for me it took 30 minutes and cost about 50 quid.
+
+  Alternatively I think they charge 70 quid for an 'aftermarket accessory installation' and will do it all for you. The main difficulty is finding the wiring diagram, you may be able to find it online or a mercedes center may be able to send you one.
+
+%h4
+  %a{ :name => "audio_photos", :href => "#audio_photos" } Photos
+
+.row
+  .col-md-3.col-sm-6.col-xs-12
+    .thumbnail
+      %a{ :href => "images/small/IMG_0026.JPG" }
+        %img.img-responsive{ :src => "images/small/IMG_0026.JPG" }
+      .caption
+        %p pre-amp mounted behind the panel above the glove compartment
+
+  .col-md-3.col-sm-6.col-xs-12
+    .thumbnail
+      %a{ :href => "images/small/IMG_0028.JPG" }
+        %img.img-responsive{ :src => "images/small/IMG_0028.JPG" }
+      .caption
+        %p patch in to 12V socket power
+
+  .clearfix.visible-sm
+
+  .col-md-3.col-sm-6.col-xs-12
+    .thumbnail
+      %a{ :href => "images/small/IMG_0045.JPG" }
+        %img.img-responsive{ :src => "images/small/IMG_0045.JPG" }
+      .caption
+        %p minijack extension cable mounted in a grommet
+
+  .col-md-3.col-sm-6.col-xs-12
+    .thumbnail
+      %a{ :href => "images/small/IMG_0044.JPG" }
+        %img.img-responsive{ :src => "images/small/IMG_0044.JPG" }
+      .caption
+        %p usb socket mounted to power phone

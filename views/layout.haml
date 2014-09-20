@@ -1,0 +1,22 @@
+!!! Strict
+%html{:xmlns => "http://www.w3.org/1999/xhtml", :lang => "en"}
+  %head
+    %meta{ :charset => "utf-8" }
+    %meta{ :'http-equiv' => "X-UA-Compatible", :content => "IE=edge" }
+    %meta{ :name => "viewport", :content => "width=device-width, initial-scale=1" }
+
+    %link{ :rel => "stylesheet", :href => "/css/bootstrap.min.css" }
+    %link{ :rel => "stylesheet", :href => "/css/bootstrap-theme.min.css" }
+    %link{ :rel => "stylesheet", :href => "/css/default.css" }
+
+    %title Rob's Van
+
+  %body
+    = haml :header
+
+    = yield
+
+    // http://getbootstrap.com/customize/?id=606cdc48ef23dab1de83
+    %script{ :src => "/js/bootstrap.min.js" }
+
+    %script{ :src => "https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" }

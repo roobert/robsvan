@@ -1,0 +1,6 @@
+move images into images/<section> subdir
+decide on image sizes
+write something that generates a TOC
+fixed max-width?
+
+write function to camelcase entries in TOC

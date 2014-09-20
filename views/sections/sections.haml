@@ -1,0 +1,27 @@
+.col-sm-4.col-xs-12
+  %h2
+    %a{ :name => "sections", :href => "#sections" } Contents
+
+  %ol#menu
+    - if @toc
+      // h3
+      - @toc.each do |h3, h4s|
+        %li
+          %h3
+            %a{ :href => "##{h3}" }= h3
+
+            // h4
+            - if h4s
+              %ol{ :type => "a" }
+                - h4s.each do |h4,h5s|
+                  %li
+                    %h4
+                      %a{ :href => "##{h4}" }= h4
+
+                      // h5
+                      - if h5s
+                        %ol{ :type => "a" }
+                          - h5s.each do |h5|
+                            %li
+                              %h5
+                                %a{ :href => "##{h5}" }= h5
