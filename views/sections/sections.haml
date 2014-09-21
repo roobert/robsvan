@@ -1,54 +1,29 @@
+%hr
+
 .col-xs-12
-  %h2
+  %h3
     %a{ :name => "sections", :href => "#sections" } Contents
 
   %ol#menu
-    - @toc.each do |heading_level_one, sub_headings_level_one|
-      %li= heading_level_one
+    - @toc.each do |heading_level_one|
+      %li
+        %a{ :href => heading_level_one.link }= heading_level_one.title
 
-      - if sub_headings_level_one
+      - if heading_level_one.sub_headers[0]
+
+      - ap heading_level_one.sub_headers[0]
 
         %ol
-          - sub_headings_level_one.each do |heading_level_two, sub_headings_level_two|
-            %li= heading_level_two
-
-            - if sub_headings_level_two
-
-              %ol
-                - sub_headings_level_two.each do |heading_level_three, sub_headings_level_three|
-                  %li= heading_level_three
-
-                  - if sub_headings_level_three
-
-                    %ol
-                      - sub_headings_level_three.each do |heading_level_four, sub_headings_level_four|
-                        %li= heading_level_four
+          - heading_level_one.sub_headers[0].each do |heading_level_two|
+            %li
+              %a{ :href => heading_level_two.link }= heading_level_two.title
 
 
+              - if heading_level_two.sub_headers[0]
 
-  %pre
-    = escape_html(@toc)
+              - ap heading_level_two.sub_headers[0]
 
-//  %ol#menu
-//    - if @toc
-//      // h3
-//      - @toc.each do |h3, h4s|
-//        %li
-//          %h3
-//            %a{ :href => "##{h3}" }= h3
-//
-//            // h4
-//            - if h4s
-//              %ol{ :type => "a" }
-//                - h4s.each do |h4,h5s|
-//                  %li
-//                    %h4
-//                      %a{ :href => "##{h4}" }= h4
-//
-//                      // h5
-//                      - if h5s
-//                        %ol{ :type => "a" }
-//                          - h5s.each do |h5|
-//                            %li
-//                              %h5
-//                                %a{ :href => "##{h5}" }= h5
+                %ol{ :type => "a" }
+                  - heading_level_two.sub_headers[0].each do |heading_level_three|
+                    %li
+                      %a{ :href => heading_level_three.link }= heading_level_three.title

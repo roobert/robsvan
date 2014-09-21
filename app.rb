@@ -3,6 +3,7 @@
 require 'sinatra'
 require 'nokogiri'
 require 'redcarpet'
+require 'ostruct'
 
 require 'haml'
 require 'sass'
@@ -45,13 +46,18 @@ helpers do
     toc
   end
 
-  def get_headers(doc, top_header)
+  def get_headers(doc, top_header, title = nil)
+
     headers = doc.xpath("//*[name()='#{top_header}']")
-    toc = {}
+
+    toc = []
 
     headers.each_with_index do |header, header_index|
 
-      toc[header] = {}
+      h = OpenStruct.new
+
+      h.title = clean_title header.text
+      h.link  = header.xpath('.//a')[0]['href'] if header.xpath('.//a')[0]
 
       # this sucks 
       next_header = "h#{header.name[1].to_i + 1}"
@@ -76,9 +82,14 @@ helpers do
         ")
       end
 
+      h.sub_headers = []
+
       sub_headers.each do |sub_header|
-        toc[header][sub_header] = get_headers(doc, sub_header.name)
+        title = clean_title(sub_header.text)
+        h.sub_headers.push get_headers(doc, sub_header.name, title)
       end
+
+      toc.push h
     end
 
     toc
