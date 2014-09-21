@@ -27,7 +27,17 @@ helpers do
   end
 
   def section_files
-    Dir[File.join(File.dirname(__FILE__), "views/sections/") + "audio.haml"]
+    file = File.read(File.join(File.dirname(__FILE__), "views/") + "index.haml")
+
+    files = []
+
+    file.each_line do |line|
+      if line.match(/.*haml :'sections.*/) and line.match(/.*haml :'sections'.*/).nil?
+        files.push File.join(File.dirname(__FILE__), "views/", line.scan(/'(.*)'/)[0][0] + '.haml')
+      end
+    end
+
+    files
   end
 
   def nokogiri_doc(file)
@@ -37,12 +47,12 @@ helpers do
 
   # returns toc in format: { h3 => { h4 => [ h5, ... ], ... }, ... }
   def generate_toc
-    file = File.join(File.dirname(__FILE__), "views/sections/") + "audio.haml"
+    toc = section_files.map do |file|
+      doc = nokogiri_doc(file)
 
-    doc = nokogiri_doc(file)
+      get_headers(doc, 'h3')
+    end
 
-    toc = get_headers(doc, 'h3')
-    ap toc
     toc
   end
 

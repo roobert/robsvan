@@ -1,0 +1,34 @@
+%hr
+
+.col-xs-12
+  %h3
+    %a{ :name => "sections", :href => "#sections" } Contents
+
+  %ol#menu
+    - @toc.each do |pages|
+      - pages.each do |heading_level_one|
+        %li
+          - if heading_level_one.respond_to?('link')
+            %a{ :href => heading_level_one.link }= heading_level_one.title
+          - else
+            = heading_level_one.title
+
+        - if heading_level_one.sub_headers[0]
+
+          %ol
+            - heading_level_one.sub_headers[0].each do |heading_level_two|
+              %li
+                - if heading_level_two.respond_to?('link')
+                  %a{ :href => heading_level_two.link }= heading_level_two.title
+                - else
+                  = heading_level_two.title
+
+                - if heading_level_two.sub_headers[0]
+
+                  %ol{ :type => "a" }
+                    - heading_level_two.sub_headers[0].each do |heading_level_three|
+                      %li
+                        - if heading_level_three.respond_to?('link')
+                          %a{ :href => heading_level_three.link }= heading_level_three.title
+                        - else
+                          = heading_level_three.title
