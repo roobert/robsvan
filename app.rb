@@ -26,7 +26,7 @@ helpers do
   end
 
   def section_files
-    Dir[File.join(File.dirname(__FILE__), "views/sections/") + "*.haml"]
+    Dir[File.join(File.dirname(__FILE__), "views/sections/") + "audio.haml"]
   end
 
   def nokogiri_doc(file)
@@ -34,62 +34,52 @@ helpers do
     Nokogiri::HTML(html)
   end
 
-  # FIXME: turn this into recursive function
   # returns toc in format: { h3 => { h4 => [ h5, ... ], ... }, ... }
   def generate_toc
+    file = File.join(File.dirname(__FILE__), "views/sections/") + "audio.haml"
+
+    doc = nokogiri_doc(file)
+
+    toc = get_headers(doc, 'h3')
+    ap toc
+    toc
+  end
+
+  def get_headers(doc, top_header)
+    headers = doc.xpath("//*[name()='#{top_header}']")
     toc = {}
 
-    section_files.each do |file|
+    headers.each_with_index do |header, header_index|
 
-      doc = nokogiri_doc(file)
+      toc[header] = {}
 
-      h3s = doc.xpath("//*[name()='h3']")
+      # this sucks 
+      next_header = "h#{header.name[1].to_i + 1}"
 
-      h3s.each_with_index do |h3, h3i|
+      if headers[header_index + 1]
 
-        toc[h3] = {}
+        current_header_text = clean_title header.text
+        next_header_text    = clean_title headers[header_index + 1].text
 
-        if h3s[h3i + 1]
+        # get headers in between current and next header
+        sub_headers = doc.xpath("
+          //#{next_header}
+          [preceding-sibling::#{header.name}[child::a[. = '#{current_header_text}']]
+            and following-sibling::#{header.name}[child::a[. ='#{next_header_text}']]]
+        ")
+      else
+        # last header, get the rest of the sub headers..
+        sub_headers = doc.xpath("
+          //#{next_header}
+          [preceding-sibling::#{header.name}
+            [child::a[. = '#{clean_title header.text}']]]
+        ")
+      end
 
-          # text inside the link
-          current_h3_text = h3.xpath('.//a')
-          next_h3_text    = h3s[h3i + 1].xpath('.//a')
-
-          # get h4s in between current and next h3s
-          ap doc.xpath("//h4[preceding-sibling::h3[child::a[. = '#{clean_title current_h3_text}']]
-                        and following-sibling::h3[child::a[. ='#{clean_title next_h3_text}']]]")
-        else
-          # last h3, get the rest of the h4s..
-          h4s = doc.xpath("//h4[preceding-sibling::h3[child::a[. = '#{clean_title h3.text}']]]")
-
-          h4s.each do |h4|
-            toc[h3][h4] = {}
-          end
-        end
+      sub_headers.each do |sub_header|
+        toc[header][sub_header] = get_headers(doc, sub_header.name)
       end
     end
-
-    puts "toc:"
-    ap toc
-
-    #  doc.xpath('//h3/following-siblings')
-
-
-    #  #doc.css('h3').each do |h3|
-    #  #  toc[clean_title(h3.content)] = {}
-
-    #  #  #doc.css('h4').each do |h4|
-    #  #  #  toc[h3.content][h4.content] = {}
-
-    #  #  #  doc.css('h5').each do |h5|
-    #  #  #    toc[h3.content][h4.content] = [] unless toc[h3][h4]
-
-    #  #  #    toc[h3.content][h4.content].push h5.content
-    #  #  #  end
-    #  #  #end
-    #  #end
-
-    #ap toc
 
     toc
   end
