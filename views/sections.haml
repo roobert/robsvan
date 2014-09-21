@@ -1,10 +1,10 @@
 %hr
 
 .col-xs-12
-  %h3
-    %a{ :name => "sections", :href => "#sections" } Contents
+  //%h3
+  //  %a{ :name => "sections", :href => "#sections" } Index
 
-  %ol#menu
+  %ol#menu.list-unstyled
     - @toc.each do |pages|
       - pages.each do |heading_level_one|
         %li
@@ -15,7 +15,7 @@
 
         - if heading_level_one.sub_headers[0]
 
-          %ol
+          %ol{ :style => "list-style-type:none" }
             - heading_level_one.sub_headers[0].each do |heading_level_two|
               %li
                 - if heading_level_two.respond_to?('link')
@@ -23,12 +23,12 @@
                 - else
                   = heading_level_two.title
 
-                - if heading_level_two.sub_headers[0]
-
-                  %ol{ :type => "a" }
-                    - heading_level_two.sub_headers[0].each do |heading_level_three|
-                      %li
-                        - if heading_level_three.respond_to?('link')
-                          %a{ :href => heading_level_three.link }= heading_level_three.title
-                        - else
-                          = heading_level_three.title
+//                - if heading_level_two.sub_headers[0]
+//
+//                  %ol{ :style => "list-style-type:none" }
+//                    - heading_level_two.sub_headers[0].each do |heading_level_three|
+//                      %li
+//                        - if heading_level_three.respond_to?('link')
+//                          %a{ :href => heading_level_three.link }= heading_level_three.title
+//                        - else
+//                          = heading_level_three.title
